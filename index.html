@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8"><meta name="case-version" content="2026-10-20-v20"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="case-version" content="2026-10-20-v21"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#000000">
 <title>Как я встроил дизайн в разработку KasperskyOS for Mobile — Александр Егоров</title>
 <meta name="description" content="Кейс Александра Егорова: команда дизайнеров, передача макетов, планирование релизов и UX-исследования KasperskyOS for Mobile.">
@@ -116,8 +116,9 @@ body.has-floating-nav .top .download{visibility:hidden;pointer-events:none}
 .nav-marker{width:1px;height:1px;margin:0 auto;pointer-events:none}
 .nav-shell{position:sticky;top:24px;z-index:30;width:min(1184px,calc(100% - 96px));margin:0 auto}
 .nav-row{display:flex;align-items:center;justify-content:center;gap:24px}
+.nav-top{display:flex;align-items:center;justify-content:center;flex:0 0 56px;width:56px;height:56px;border-radius:50%;color:#fff;text-decoration:none}
 .nav-menu{position:relative;flex:0 1 913px;max-width:913px;min-width:0}
-#case-sections,.nav-toggle{background:var(--glass);backdrop-filter:blur(27px);-webkit-backdrop-filter:blur(27px)}
+#case-sections,.nav-toggle,.nav-top{background:var(--glass);backdrop-filter:blur(27px);-webkit-backdrop-filter:blur(27px)}
 #case-sections{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;height:56px;padding:16px 24px;border-radius:64px}
 #case-sections a{--pill-left:16px;--pill-right:16px;position:relative;z-index:0;isolation:isolate;flex-shrink:0;color:#fff;text-decoration:none;white-space:nowrap;font-size:16px;font-weight:500;line-height:20px;letter-spacing:-.02em}
 /* The SVG mask cuts the current label out of the white selection. */
@@ -129,7 +130,7 @@ body.has-floating-nav .top .download{visibility:hidden;pointer-events:none}
 .nav-toggle svg{flex-shrink:0;transition:transform .2s}
 .nav-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
 .nav-menu.is-compact .nav-toggle{display:flex}
-.nav-menu.is-compact #case-sections{display:none;position:absolute;top:64px;left:0;flex-direction:column;align-items:stretch;gap:0;width:max-content;min-width:100%;max-width:calc(100vw - 24px);height:auto;max-height:min(360px,calc(100dvh - 100px));padding:4px;border-radius:28px;overflow:auto;box-shadow:0 8px 32px #0006}
+.nav-menu.is-compact #case-sections{display:none;position:absolute;top:64px;left:0;flex-direction:column;align-items:stretch;gap:0;width:max-content;min-width:100%;max-width:min(360px,calc(100vw - 104px));height:auto;max-height:min(360px,calc(100dvh - 100px));padding:4px;border-radius:28px;overflow:auto;box-shadow:0 8px 32px #0006}
 .nav-menu.is-compact.is-open #case-sections{display:flex}
 .nav-menu.is-compact #case-sections a{--pill-left:0px;--pill-right:0px;display:block;min-height:48px;padding:14px 24px;border-radius:24px;font-size:16px}
 .nav-menu.is-compact #case-sections a:not([aria-current]):hover{background:rgba(255,255,255,.08)}
@@ -218,7 +219,7 @@ section header .eyebrow{margin-bottom:12px;font-size:clamp(20px,2.78vw,40px);lin
  #results{padding-bottom:48px}
  .quote{margin-top:24px;padding:32px;border-radius:30px}
 }
-@media(max-width:480px){.nav-toggle{padding:16px;gap:8px}.nav-download{padding:16px 12px}}
+@media(max-width:480px){.nav-toggle{padding:16px;gap:8px}.nav-download{padding:16px 12px}.nav-download .download-verb{display:none}.nav-download>span{text-transform:capitalize}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 @media print{
  .nav-shell,.top .download,.skip{display:none}
@@ -237,12 +238,12 @@ section header .eyebrow{margin-bottom:12px;font-size:clamp(20px,2.78vw,40px);lin
 </head>
 <body id="top"><a class="skip" href="#content">К&nbsp;содержанию кейса</a>
 <div class="wrap">
-<div class="top"><img class="portrait" src="assets/portrait.png" alt="" width="140" height="140"><a class="download" href="assets/Alexander-Egorov-Resume.pdf" download="Alexander-Egorov-Resume.pdf"><span>Скачать резюме</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" class="download-icon">
+<div class="top"><img class="portrait" src="assets/portrait.png" alt="" width="140" height="140"><a class="download" href="assets/Alexander-Egorov-Resume.pdf" download="Alexander-Egorov-Resume.pdf"><span><span class="download-verb">Скачать </span>резюме</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" class="download-icon">
 <path d="M1.55966 16L0 14.4318L9.4517 4.96307H2.20739L2.22443 2.80682H13.1761V13.767H11.0028L11.0199 6.52273L1.55966 16Z" fill="currentColor"/>
 </svg></a></div>
 <header class="hero"><h1>Как я встроил дизайн в&nbsp;разработку KasperskyOS for Mobile *</h1><p class="subtitle">*B2B-мобильная операционная система на&nbsp;базе KasperskyOS.</p><img class="hero-art" src="assets/hero.png" alt="Интерфейс KasperskyOS for Mobile в перспективе" width="2048" height="1383" fetchpriority="high"></header>
 </div>
-<div class="nav-marker" aria-hidden="true"></div><div class="nav-shell"><div class="nav-row"><div class="nav-menu"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="case-sections"><span class="nav-current">Ситуация</span><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="m5 7.5 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button><nav id="case-sections" aria-label="Разделы кейса"><a href="#situation" aria-current="location"><span class="nav-link-label">Ситуация</span></a><a href="#team"><span class="nav-link-label">Начало изменений</span></a><a href="#releases"><span class="nav-link-label">Планирование</span></a><a href="#research"><span class="nav-link-label">Влияние на&nbsp;продукт</span></a><a href="#results"><span class="nav-link-label">Результат</span></a></nav></div><a class="nav-download" href="assets/Alexander-Egorov-Resume.pdf" download="Alexander-Egorov-Resume.pdf"><span>Скачать резюме</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" class="download-icon">
+<div class="nav-marker" aria-hidden="true"></div><div class="nav-shell"><div class="nav-row"><a class="nav-top" href="#top" aria-label="Вернуться к началу страницы"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M12 20V4M5 11l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></a><div class="nav-menu"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="case-sections"><span class="nav-current">Ситуация</span><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="m5 7.5 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button><nav id="case-sections" aria-label="Разделы кейса"><a href="#situation" aria-current="location"><span class="nav-link-label">Ситуация</span></a><a href="#team"><span class="nav-link-label">Начало изменений</span></a><a href="#releases"><span class="nav-link-label">Планирование</span></a><a href="#research"><span class="nav-link-label">Влияние на&nbsp;продукт</span></a><a href="#results"><span class="nav-link-label">Результат</span></a></nav></div><a class="nav-download" aria-label="Скачать резюме" href="assets/Alexander-Egorov-Resume.pdf" download="Alexander-Egorov-Resume.pdf"><span><span class="download-verb">Скачать </span>резюме</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" class="download-icon">
 <path d="M1.55966 16L0 14.4318L9.4517 4.96307H2.20739L2.22443 2.80682H13.1761V13.767H11.0028L11.0199 6.52273L1.55966 16Z" fill="currentColor"/>
 </svg></a></div></div>
 <main class="wrap" id="content" tabindex="-1">
