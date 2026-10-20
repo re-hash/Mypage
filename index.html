@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8"><meta name="case-version" content="2026-10-20-v12"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="case-version" content="2026-10-20-v13"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#000000">
 <title>Как я встроил дизайн в разработку KasperskyOS for Mobile — Александр Егоров</title>
 <meta name="description" content="Кейс Александра Егорова: команда дизайнеров, передача макетов, планирование релизов и UX-исследования KasperskyOS for Mobile.">
@@ -159,6 +159,24 @@ body.has-floating-nav .top .download{visibility:hidden;pointer-events:none}
 
 .example header .eyebrow{font-size:clamp(20px,2.78vw,40px);font-weight:500;line-height:1.3;letter-spacing:-.022em;color:#99a6bf;margin:0 0 4px}
 @media(max-width:760px){.example header .eyebrow{font-size:20px}}
+
+/* Collapse the section links only when the complete row no longer fits. */
+.nav-menu{position:relative;flex:0 1 913px;max-width:913px;min-width:0}
+.nav-shell .nav-menu nav{width:100%;max-width:none}
+.nav-toggle{display:none;width:100%;height:56px;align-items:center;justify-content:space-between;gap:12px;padding:16px 24px;border:0;border-radius:32px;background:rgba(255,255,255,.12);backdrop-filter:blur(27px);-webkit-backdrop-filter:blur(27px);color:#fff;font:500 16px/24px Inter,sans-serif;letter-spacing:-.02em;text-align:left;cursor:pointer}
+.nav-current{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav-toggle svg{flex-shrink:0;transition:transform .2s}
+.nav-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+.nav-menu.is-compact .nav-toggle{display:flex}
+.nav-shell .nav-menu.is-compact nav{display:none;position:absolute;top:64px;left:0;width:max-content;min-width:100%;max-width:calc(100vw - 24px);height:auto;max-height:min(360px,calc(100dvh - 100px));padding:4px;border-radius:28px;overflow:auto;flex-direction:column;align-items:stretch;gap:0;box-shadow:0 8px 32px #0006}
+.nav-shell .nav-menu.is-compact.is-open nav{display:flex}
+.nav-shell .nav-menu.is-compact nav a{display:block;min-height:48px;padding:14px 24px;font-size:16px;line-height:20px;border-radius:24px}
+.nav-shell .nav-menu.is-compact nav a:hover{background:rgba(255,255,255,.08)}
+.nav-shell .nav-menu.is-compact nav a[aria-current="location"]::before{inset:0;height:auto;transform:none;border-radius:24px}
+.nav-menu.is-compact a:focus-visible{outline-offset:-4px}
+@media(max-width:1100px){.nav-toggle{font-size:14px}}
+@media(max-width:480px){.nav-toggle{padding:16px;gap:8px}.nav-download{padding:16px 12px}}
+@media(prefers-reduced-motion:reduce){.nav-toggle svg{transition:none}}
 </style>
 </head>
 <body id="top"><a class="skip" href="#situation">К содержанию кейса</a>
@@ -167,7 +185,7 @@ body.has-floating-nav .top .download{visibility:hidden;pointer-events:none}
 <div>
 <header class="hero"><h1>Как я встроил дизайн в&nbsp;разработку KasperskyOS for Mobile *</h1><p class="subtitle">*B2B-мобильная операционная система на базе KasperskyOS.</p><img class="hero-art" src="assets/hero.png" alt="Интерфейс KasperskyOS for Mobile в перспективе" width="2048" height="1383"></header>
 </div></div>
-<div class="nav-marker" aria-hidden="true"></div><div class="nav-shell"><div class="nav-row"><nav aria-label="Разделы кейса"><a href="#situation" aria-current="location">Ситуация</a><a href="#team">Начало изменений</a><a href="#releases">Планирование</a><a href="#research">Влияние на продукт</a><a href="#results">Результат</a></nav><a class="nav-download" href="assets/Alexander-Egorov-Resume.pdf" download="Alexander-Egorov-Resume.pdf">Скачать резюме ↗</a></div></div>
+<div class="nav-marker" aria-hidden="true"></div><div class="nav-shell"><div class="nav-row"><div class="nav-menu"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="case-sections"><span class="nav-current">Ситуация</span><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="m5 7.5 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button><nav id="case-sections" aria-label="Разделы кейса"><a href="#situation" aria-current="location">Ситуация</a><a href="#team">Начало изменений</a><a href="#releases">Планирование</a><a href="#research">Влияние на продукт</a><a href="#results">Результат</a></nav></div><a class="nav-download" href="assets/Alexander-Egorov-Resume.pdf" download="Alexander-Egorov-Resume.pdf">Скачать резюме ↗</a></div></div>
 <main class="wrap" id="content">
 <section id="situation"><header><p class="eyebrow">Исходная ситуация</p><h2>Дизайн и разработка<br>работали разрозненно</h2></header><p class="lead">Когда я начал координировать дизайнеров, выяснилось, что у команды нет общего процесса работы с разработкой.</p><div class="grid"><article class="card wide"><h3>Дизайнеры не обсуждали решения с разработкой и не всегда учитывали технические ограничения. В итоге часть решений было невозможно реализовать, а разработчикам приходилось самим разбираться, что с этим делать.</h3></article><article class="card"><h3>Дизайнеры работали в общем файле Figma, где со временем накапливались устаревшие экраны и изменения, от которых отказались уже в процессе разработки.</h3><p>Найти актуальные решения становилось всё сложнее.</p></article><article class="card"><h3>Задачи часто приходили от аналитика с уже согласованным решением.</h3><p>Дизайнеры подключались после обсуждения вариантов и не всегда могли повлиять на итоговое решение.</p></article></div><figure class="figure diagram"><img src="assets/before.svg"  loading="lazy" alt="Схема работы до изменений: аналитик и PdM передавали задачу дизайнерам, а затем — разработке и смежным командам. Дизайнеры работали изолированно, макеты менялись хаотично." width="1186" height="594"></figure></section>
 <section id="team"><header><p class="eyebrow">Начало изменений</p><h2>Наладил работу команды<br>и дизайн-ревью</h2></header><div class="grid"><article class="card"><h3>Организовал еженедельные встречи с дизайнерами, PdM и аналитиком.</h3><p>На них обсуждали новые задачи, текущие результаты и загрузку команды.</p></article><article class="card"><h3>Перед общими встречами проводил 1:1.</h3><p>Разбирали работу, обсуждали блокеры и дальнейшие шаги.</p></article><article class="card"><h3>Со временем дизайнеры стали работать самостоятельнее.</h3><p>Реже приходить с вопросами о следующих шагах.</p></article><article class="card"><h3>Отдельно занимался адаптацией стажёра.</h3><p>Начинали с пробных задач, вместе разбирали результаты. Не принимал решения за него, помогал разобраться и отвечать за собственный выбор.</p></article></div></section>
@@ -178,10 +196,80 @@ body.has-floating-nav .top .download{visibility:hidden;pointer-events:none}
 <section id="results"><header><p class="eyebrow">Результаты и выводы</p><h2>Что изменилось</h2></header><p class="lead">Теперь мы обсуждаем решения с разработкой до начала реализации, а после проверяем сборки. Разработчики и тестировщики стали понимать, какой макет актуален.</p><div class="grid"><article class="card"><h3>Дизайнеры стали самостоятельнее и лучше понимали, как вести задачу от обсуждения до передачи в разработку.</h3></article><article class="card"><h3>У разработчиков и тестировщиков стало меньше вопросов об актуальности макетов и изменениях в интерфейсе.</h3></article><article class="card"><h3>Дизайн стал участвовать в планировании релизов и предварительной оценке задач.</h3></article><article class="card"><h3>Из 23 проблем, найденных в исследованиях, исправили около 70%. Исправления проверяли на сборках и повторных юзабилити-тестах.</h3></article></div><figure class="quote"><figcaption class="label">Отзыв дизайнера из моей команды</figcaption><img src="assets/review-avatar.png" alt="" loading="lazy" width="80" height="80"><blockquote>«Ты эмпатичен, ты слушаешь, говоришь, ругаешь когда надо, даешь расти»</blockquote></figure></section>
 </main>
 <script>
-const links=[...document.querySelectorAll('nav a')],sections=links.map(link=>document.querySelector(link.hash)).filter(Boolean);let pending=false;function update(){const y=window.scrollY+Math.min(240,innerHeight*.32);let current=sections[0];for(const section of sections)if(section.offsetTop<=y)current=section;if(innerHeight+window.scrollY>=document.documentElement.scrollHeight-8)current=sections[sections.length-1];for(const link of links){if(link.hash==='#'+current.id)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current')}pending=false}addEventListener('scroll',()=>{if(!pending){pending=true;requestAnimationFrame(update)}},{passive:true});addEventListener('resize',update);update();
-
+const links=[...document.querySelectorAll('#case-sections a')];
+const sections=links.map(link=>document.querySelector(link.hash)).filter(Boolean);
 const shell=document.querySelector('.nav-shell'),marker=document.querySelector('.nav-marker');
-function updateFloating(){const dockTop=parseFloat(getComputedStyle(document.querySelector('.top .download')).top)||0;const joined=marker.getBoundingClientRect().top<=dockTop;shell.classList.toggle('is-floating',joined);document.body.classList.toggle('has-floating-nav',joined);}
-addEventListener('scroll',updateFloating,{passive:true});addEventListener('resize',updateFloating);updateFloating();
+const menu=document.querySelector('.nav-menu'),nav=menu.querySelector('nav');
+const toggle=menu.querySelector('.nav-toggle'),label=menu.querySelector('.nav-current');
+let pending=false;
+function setOpen(open,returnFocus=false){
+  menu.classList.toggle('is-open',open);
+  toggle.setAttribute('aria-expanded',String(open));
+  if(returnFocus)toggle.focus({preventScroll:true});
+}
+function setCurrent(current){
+  for(const link of links){
+    const active=link.hash==='#'+current.id;
+    if(active){link.setAttribute('aria-current','location');label.textContent=link.textContent;toggle.title=link.textContent;toggle.setAttribute('aria-label','Разделы кейса: '+link.textContent);}
+    else link.removeAttribute('aria-current');
+  }
+}
+function update(){
+  const y=window.scrollY+Math.min(240,innerHeight*.32);
+  let current=sections[0];
+  for(const section of sections)if(section.offsetTop<=y)current=section;
+  if(innerHeight+window.scrollY>=document.documentElement.scrollHeight-8)current=sections[sections.length-1];
+  setCurrent(current);pending=false;
+}
+function updateMenuLayout(){
+  // Measure the original single row, regardless of the current dropdown state.
+  const compactBefore=menu.classList.contains('is-compact');
+  menu.classList.remove('is-compact');
+  const style=getComputedStyle(nav);
+  const needed=links.reduce((sum,link)=>sum+link.getBoundingClientRect().width,0)
+    +parseFloat(style.columnGap)*(links.length-1)+parseFloat(style.paddingLeft)+parseFloat(style.paddingRight);
+  const compact=needed>nav.clientWidth+1;
+  menu.classList.toggle('is-compact',compact);
+  if(!compact){
+    const toggleFocused=document.activeElement===toggle;
+    setOpen(false);
+    if(toggleFocused)(links.find(link=>link.hasAttribute('aria-current'))||links[0]).focus({preventScroll:true});
+  }else if(!compactBefore){
+    const linkFocused=links.includes(document.activeElement);
+    setOpen(false,linkFocused);
+  }
+}
+function updateFloating(){
+  const dockTop=parseFloat(getComputedStyle(document.querySelector('.top .download')).top)||0;
+  const joined=marker.getBoundingClientRect().top<=dockTop;
+  const changed=shell.classList.contains('is-floating')!==joined;
+  shell.classList.toggle('is-floating',joined);
+  document.body.classList.toggle('has-floating-nav',joined);
+  if(changed)updateMenuLayout();
+}
+toggle.addEventListener('click',()=>setOpen(!menu.classList.contains('is-open')));
+toggle.addEventListener('keydown',event=>{
+  if(event.key==='ArrowDown'){
+    event.preventDefault();setOpen(true);
+    (links.find(link=>link.hasAttribute('aria-current'))||links[0]).focus();
+  }
+});
+menu.addEventListener('keydown',event=>{
+  if(event.key==='Escape'){event.preventDefault();setOpen(false,true);}
+});
+menu.addEventListener('focusout',event=>{if(!menu.contains(event.relatedTarget))setOpen(false);});
+document.addEventListener('click',event=>{if(!menu.contains(event.target))setOpen(false);});
+for(const link of links)link.addEventListener('click',()=>{
+  setCurrent(document.querySelector(link.hash));
+  setOpen(false,menu.classList.contains('is-compact'));
+});
+addEventListener('scroll',()=>{
+  updateFloating();
+  if(!pending){pending=true;requestAnimationFrame(update);}
+},{passive:true});
+addEventListener('resize',()=>{updateFloating();updateMenuLayout();update();});
+if('ResizeObserver' in window)new ResizeObserver(updateMenuLayout).observe(menu);
+document.fonts.ready.then(updateMenuLayout);
+update();updateFloating();updateMenuLayout();
 </script>
 </body></html>
