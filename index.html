@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8"><meta name="case-version" content="2026-10-20-v18"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="case-version" content="2026-10-20-v19"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#000000">
 <title>Как я встроил дизайн в разработку KasperskyOS for Mobile — Александр Егоров</title>
 <meta name="description" content="Кейс Александра Егорова: команда дизайнеров, передача макетов, планирование релизов и UX-исследования KasperskyOS for Mobile.">
@@ -119,9 +119,8 @@ body.has-floating-nav .top .download{visibility:hidden;pointer-events:none}
 #case-sections,.nav-toggle{background:var(--glass);backdrop-filter:blur(27px);-webkit-backdrop-filter:blur(27px)}
 #case-sections{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;height:56px;padding:16px 24px;border-radius:64px}
 #case-sections a{--pill-left:16px;--pill-right:16px;position:relative;z-index:0;isolation:isolate;flex-shrink:0;color:#fff;text-decoration:none;white-space:nowrap;font-size:16px;font-weight:500;line-height:20px;letter-spacing:-.02em}
-#case-sections a:hover{color:#fff}
 /* The SVG mask cuts the current label out of the white selection. */
-#case-sections a[aria-current="location"]{color:transparent}
+#case-sections a.has-selection{color:transparent}
 #case-sections a:first-child{--pill-left:20px}
 #case-sections a:last-child{--pill-right:20px}
 .nav-selection{position:absolute;z-index:-1;left:calc(-1 * var(--pill-left));top:50%;width:calc(100% + var(--pill-left) + var(--pill-right));height:48px;transform:translateY(-50%);pointer-events:none}
@@ -226,28 +225,29 @@ section header .eyebrow{margin-bottom:12px;font-size:clamp(20px,2.78vw,40px);lin
  body{background:white;color:black}
  .wrap{width:100%}
  .card,.research{background:#eee;color:black;break-inside:avoid}
- p,.lead,.eyebrow,.card p,.research header{margin-bottom:48px}
-.research .last{color:#333}
+ .lead,.eyebrow,.card p,.research .last,.hero .subtitle,.quote .label,.example header .eyebrow,.example p:not(.eyebrow){color:#333}
+ .example,.quote{background:#eee;color:#000}
+ .nav-selection,video{display:none}
+ .example-visual{grid-template-columns:1fr}
+ .research header{margin-bottom:48px}
  section{padding-top:48px}
  .hero-art{max-height:400px;object-fit:contain}
- .example,.quote{print-color-adjust:exact}
 }
 </style>
 </head>
-<body id="top"><a class="skip" href="#situation">К&nbsp;содержанию кейса</a>
+<body id="top"><a class="skip" href="#content">К&nbsp;содержанию кейса</a>
 <div class="wrap">
 <div class="top"><img class="portrait" src="assets/portrait.png" alt="" width="140" height="140"><a class="download" href="assets/Alexander-Egorov-Resume.pdf" download="Alexander-Egorov-Resume.pdf">Скачать резюме ↗</a></div>
-<div>
-<header class="hero"><h1>Как я встроил дизайн в&nbsp;разработку KasperskyOS for Mobile *</h1><p class="subtitle">*B2B-мобильная операционная система на&nbsp;базе KasperskyOS.</p><img class="hero-art" src="assets/hero.png" alt="Интерфейс KasperskyOS for Mobile в перспективе" width="2048" height="1383"></header>
-</div></div>
+<header class="hero"><h1>Как я встроил дизайн в&nbsp;разработку KasperskyOS for Mobile *</h1><p class="subtitle">*B2B-мобильная операционная система на&nbsp;базе KasperskyOS.</p><img class="hero-art" src="assets/hero.png" alt="Интерфейс KasperskyOS for Mobile в перспективе" width="2048" height="1383" fetchpriority="high"></header>
+</div>
 <div class="nav-marker" aria-hidden="true"></div><div class="nav-shell"><div class="nav-row"><div class="nav-menu"><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="case-sections"><span class="nav-current">Ситуация</span><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="m5 7.5 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button><nav id="case-sections" aria-label="Разделы кейса"><a href="#situation" aria-current="location"><span class="nav-link-label">Ситуация</span></a><a href="#team"><span class="nav-link-label">Начало изменений</span></a><a href="#releases"><span class="nav-link-label">Планирование</span></a><a href="#research"><span class="nav-link-label">Влияние на&nbsp;продукт</span></a><a href="#results"><span class="nav-link-label">Результат</span></a></nav></div><a class="nav-download" href="assets/Alexander-Egorov-Resume.pdf" download="Alexander-Egorov-Resume.pdf">Скачать резюме ↗</a></div></div>
-<main class="wrap" id="content">
+<main class="wrap" id="content" tabindex="-1">
 <section id="situation"><header><p class="eyebrow">Исходная ситуация</p><h2>Дизайн и&nbsp;разработка<br>работали разрозненно</h2></header><p class="lead">Когда я начал координировать дизайнеров, выяснилось, что у&nbsp;команды нет общего процесса работы с&nbsp;разработкой.</p><div class="grid"><article class="card wide"><h3>Дизайнеры не обсуждали решения с&nbsp;разработкой и&nbsp;не всегда учитывали технические ограничения. В&nbsp;итоге часть решений было невозможно реализовать, а&nbsp;разработчикам приходилось самим разбираться, что с&nbsp;этим делать.</h3></article><article class="card"><h3>Дизайнеры работали в&nbsp;общем файле Figma, где со&nbsp;временем накапливались устаревшие экраны и&nbsp;изменения, от&nbsp;которых отказались уже в&nbsp;процессе разработки.</h3><p>Найти актуальные решения становилось всё сложнее.</p></article><article class="card"><h3>Задачи часто приходили от&nbsp;аналитика с&nbsp;уже согласованным решением.</h3><p>Дизайнеры подключались после обсуждения вариантов и&nbsp;не всегда могли повлиять на&nbsp;итоговое решение.</p></article></div><figure class="figure diagram"><img src="assets/before.svg"  loading="lazy" alt="Схема работы до изменений: аналитик и PdM передавали задачу дизайнерам, а затем — разработке и смежным командам. Дизайнеры работали изолированно, макеты менялись хаотично." width="1186" height="594"></figure></section>
 <section id="team"><header><p class="eyebrow">Начало изменений</p><h2>Наладил работу команды<br>и&nbsp;дизайн-ревью</h2></header><div class="grid"><article class="card"><h3>Организовал еженедельные встречи с&nbsp;дизайнерами, PdM и&nbsp;аналитиком.</h3><p>На&nbsp;них обсуждали новые задачи, текущие результаты и&nbsp;загрузку команды.</p></article><article class="card"><h3>Проводил встречи 1:1 с&nbsp;дизайнерами.</h3><p>Разбирали работу, обсуждали блокеры и&nbsp;дальнейшие шаги.</p></article><article class="card wide"><h3>Отдельно занимался адаптацией стажёра.</h3><p>Начинали с&nbsp;пробных задач, вместе разбирали результаты. Не принимал решения за&nbsp;него, помогал разобраться и&nbsp;отвечать за&nbsp;собственный выбор.</p></article></div></section>
 <section id="figma"><header><p class="eyebrow">Работа с&nbsp;макетами и&nbsp;передача в&nbsp;разработку</p><h2>Сделал изменения<br>в&nbsp;макетах понятными</h2></header><p class="lead">После обратной связи от&nbsp;команды пересмотрел структуру Figma.</p><div class="grid"><article class="card"><h3>Вместо одного общего файла разделил макеты по&nbsp;приложениям и&nbsp;ввёл мастер-файлы с&nbsp;привязкой к&nbsp;итерациям.</h3><p>В&nbsp;каждом мастер-файле оставались только изменения, относящиеся к&nbsp;конкретному релизу.</p></article><article class="card"><h3>Добавил единые правила нумерации экранов, обязательные подписи переходов, комментарии, бейджи изменений и&nbsp;changelog прямо в&nbsp;макетах.</h3><p>Для&nbsp;анимаций стали указывать параметры и&nbsp;тайминги.</p></article><article class="card wide"><h3>Разработчикам и&nbsp;тестировщикам стало проще находить актуальные решения.</h3><p>На&nbsp;дизайн-ревью сборок стало видно, что команда реализует именно последние изменения. Если находили расхождение, заводили баг или change request.</p></article></div><figure class="figure diagram"><img src="assets/handoff.svg"  loading="lazy" alt="Пример мастер-файла Launcher: итерация 2.7, changelog, номера экранов 1.1–1.3 и подпись перехода go to 1.3." width="1186" height="823"></figure></section>
 <section id="releases"><header><p class="eyebrow">Планирование релизов</p><h2>Подключил дизайн<br>к&nbsp;подготовке релизов</h2></header><p class="lead">Раньше дизайнеры часто получали уже согласованные решения, которые оставалось только оформить.</p><p class="lead">Сейчас я подключаюсь к&nbsp;планированию следующего релиза, когда у&nbsp;PdM появляется черновой план.</p><div class="grid"><article class="card"><h3>Для&nbsp;задач, где нужен дизайн, сначала готовим концептуальные макеты и&nbsp;передаём их разработчикам на&nbsp;HLE — предварительную оценку трудозатрат.</h3><p>К&nbsp;началу разработки детализируем сценарии и&nbsp;состояния интерфейса.</p></article><article class="card"><h3>Так у&nbsp;команды появилась возможность обсуждать решения до&nbsp;начала реализации.</h3><p>При&nbsp;этом некоторые задачи по-прежнему приходят с&nbsp;уже согласованным вариантом.</p></article></div><figure class="timeline"><img src="assets/timeline.svg"  loading="lazy" alt="Подготовка релиза: черновик релиза, концепт, HLE, детальные макеты, разработка, дизайн-ревью." width="1185" height="186"></figure></section>
 <section id="research" class="research"><header><p class="eyebrow">Влияние на&nbsp;продукт</p><h2>Исследования помогли сформировать UX-бэклог</h2></header><p class="lead">В&nbsp;планирование релизов стали включать и&nbsp;UX-проблемы, которые мы находили в&nbsp;исследованиях. Я подготовил программу исследования и&nbsp;скринер, сопровождал поиск респондентов, проводил глубинные интервью и&nbsp;юзабилити-тесты.</p><p class="lead">По&nbsp;итогам выявили 23 UX-проблемы. Я собрал их в&nbsp;Confluence, сгруппировал по&nbsp;типам и&nbsp;выставил приоритеты со&nbsp;стороны дизайна. Затем PdM и&nbsp;аналитик добавили свои оценки.</p><p class="lead">При&nbsp;выборе задач учитывали частоту использования сценария, ожидаемый эффект и&nbsp;стоимость реализации.</p><div class="stats"><div class="stat"><strong>23</strong><p>Выявленные<br>UX-проблемы</p></div><div class="stat"><strong>≈70%</strong><p>Исправлено<br>и&nbsp;проверено</p></div></div><p class="last">Исправления отслеживал на&nbsp;дизайн-ревью сборок. Повторный юзабилити-тест помог проверить результат. Остальные проблемы остались в&nbsp;UX-долге.</p></section>
-<section id="example" class="example"><header><p class="eyebrow">Пример работы с&nbsp;разработкой</p><h2>Баланс между плавным UI и&nbsp;реальными возможностями</h2></header><div class="example-copy"><p>При&nbsp;работе над&nbsp;переключением экранов в&nbsp;Launcher столкнулись с&nbsp;ограничениями существующего кода. Хотелось добиться плавной анимации, но&nbsp;переписывать механизм с&nbsp;нуля не было ресурсов.</p><p>Вместе с&nbsp;разработчиком разбирались в&nbsp;параметрах, меняли настройки и&nbsp;проверяли результат на&nbsp;сборках. В&nbsp;итоге нашли вариант, который устроил всех.</p></div><div class="example-visual"><video class="launcher-animation" src="assets/launcher-animation.mp4" width="471" height="520" autoplay loop muted playsinline preload="metadata" aria-label="Анимация переключения экранов Launcher"></video><div class="animation-parameters"><img src="assets/animation-parameters.svg" width="596" height="760.199951" alt="Параметры настройки анимации: distanceThreshold, velocityThreshold, shakeAmplitude, shakeDuration и animationMaxVelocity."></div></div><p class="example-ending">Договорились вернуться к&nbsp;анимации после перехода на&nbsp;другую кодовую базу.</p></section>
+<section id="example" class="example"><header><p class="eyebrow">Пример работы с&nbsp;разработкой</p><h2>Баланс между плавным UI и&nbsp;реальными возможностями</h2></header><div class="example-copy"><p>При&nbsp;работе над&nbsp;переключением экранов в&nbsp;Launcher столкнулись с&nbsp;ограничениями существующего кода. Хотелось добиться плавной анимации, но&nbsp;переписывать механизм с&nbsp;нуля не было ресурсов.</p><p>Вместе с&nbsp;разработчиком разбирались в&nbsp;параметрах, меняли настройки и&nbsp;проверяли результат на&nbsp;сборках. В&nbsp;итоге нашли вариант, который устроил всех.</p></div><div class="example-visual"><video class="launcher-animation" src="assets/launcher-animation.mp4" width="471" height="520" controls loop muted playsinline preload="metadata" aria-label="Анимация переключения экранов Launcher"></video><div class="animation-parameters"><img src="assets/animation-parameters.svg" width="596" height="760" alt="Параметры настройки анимации: distanceThreshold, velocityThreshold, shakeAmplitude, shakeDuration и animationMaxVelocity."></div></div><p class="example-ending">Договорились вернуться к&nbsp;анимации после перехода на&nbsp;другую кодовую базу.</p></section>
 <section id="results"><header><p class="eyebrow">Результаты и&nbsp;выводы</p><h2>Что изменилось</h2></header><p class="lead">Теперь мы обсуждаем решения с&nbsp;разработкой до&nbsp;начала реализации, а&nbsp;после проверяем сборки. Разработчики и&nbsp;тестировщики стали понимать, какой макет актуален.</p><div class="grid"><article class="card"><h3>Дизайнеры стали самостоятельнее и&nbsp;лучше понимали, как вести задачу от&nbsp;обсуждения до&nbsp;передачи в&nbsp;разработку.</h3></article><article class="card"><h3>У&nbsp;разработчиков и&nbsp;тестировщиков стало меньше вопросов об&nbsp;актуальности макетов и&nbsp;изменениях в&nbsp;интерфейсе.</h3></article><article class="card"><h3>Дизайн стал участвовать в&nbsp;планировании релизов и&nbsp;предварительной оценке задач.</h3></article><article class="card"><h3>Из&nbsp;23 проблем, найденных в&nbsp;исследованиях, исправили около 70%. Исправления проверяли на&nbsp;сборках и&nbsp;повторных юзабилити-тестах.</h3></article></div><figure class="quote"><img src="assets/review-avatar.png" alt="" loading="lazy" width="80" height="80"><blockquote>«Ты эмпатичен, ты слушаешь, говоришь, ругаешь когда надо, даешь расти»</blockquote><figcaption class="label">Отзыв дизайнера из&nbsp;моей команды</figcaption></figure></section>
 </main>
 <script>
@@ -265,11 +265,13 @@ let activeLink=null,frame=0,layoutDirty=true;
 function setOpen(open,returnFocus=false){
  menu.classList.toggle('is-open',open);
  toggle.setAttribute('aria-expanded',String(open));
+ if(open)drawSelection();
  if(returnFocus)toggle.focus({preventScroll:true});
 }
 function setCurrent(link){
  if(link===activeLink)return;
  activeLink?.removeAttribute('aria-current');
+ activeLink?.classList.remove('has-selection');
  activeLink?.querySelector('.nav-selection')?.remove();
  activeLink=link;
  link.setAttribute('aria-current','location');
@@ -286,10 +288,14 @@ function svgNode(tag,attributes){
 function drawSelection(){
  if(!activeLink)return;
  activeLink.querySelector('.nav-selection')?.remove();
+ activeLink.classList.remove('has-selection');
+ const linkWidth=activeLink.getBoundingClientRect().width;
+ // A closed compact menu has no layout; measure it only after opening.
+ if(!linkWidth)return;
  const style=getComputedStyle(activeLink);
  const left=parseFloat(style.getPropertyValue('--pill-left'))||0;
  const right=parseFloat(style.getPropertyValue('--pill-right'))||0;
- const width=activeLink.getBoundingClientRect().width+left+right;
+ const width=linkWidth+left+right;
  const svg=svgNode('svg',{class:'nav-selection',viewBox:`0 0 ${width} 48`,'aria-hidden':'true',focusable:'false'});
  const mask=svgNode('mask',{id:'nav-label-cutout',maskUnits:'userSpaceOnUse',x:0,y:0,width,height:48});
  const text=svgNode('text',{x:left+parseFloat(style.paddingLeft),y:24,'dominant-baseline':'central',fill:'black','font-family':style.fontFamily,'font-size':style.fontSize,'font-weight':style.fontWeight,'letter-spacing':style.letterSpacing});
@@ -298,6 +304,7 @@ function drawSelection(){
  const defs=svgNode('defs',{});defs.append(mask);
  svg.append(defs,svgNode('rect',{width:'100%',height:48,rx:24,fill:'white',mask:'url(#nav-label-cutout)'}));
  activeLink.append(svg);
+ activeLink.classList.add('has-selection');
 }
 function measureNavigation(){
  const wasCompact=menu.classList.contains('is-compact');
@@ -354,5 +361,30 @@ addEventListener('resize',()=>scheduleUpdate(true));
 if('ResizeObserver' in window)new ResizeObserver(()=>scheduleUpdate(true)).observe(menu);
 document.fonts.ready.then(()=>scheduleUpdate(true));
 refresh();
+
+// Native controls keep playback usable without JavaScript, too.
+const video=document.querySelector('.launcher-animation');
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+let videoVisible=false,resumePlayback=!reducedMotion.matches;
+function updatePlayback(){
+ if(!videoVisible){
+  resumePlayback=resumePlayback||!video.paused;
+  video.pause();
+ }else if(resumePlayback&&!reducedMotion.matches){
+  resumePlayback=false;
+  video.play().catch(()=>{}); // Autoplay may be blocked; controls remain available.
+ }
+}
+if('IntersectionObserver' in window){
+ new IntersectionObserver(([entry])=>{
+  videoVisible=entry.isIntersecting;
+  updatePlayback();
+ }).observe(video);
+}
+reducedMotion.addEventListener('change',()=>{
+ resumePlayback=!reducedMotion.matches;
+ if(reducedMotion.matches)video.pause();
+ updatePlayback();
+});
 </script>
 </body></html>
